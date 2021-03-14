@@ -48,7 +48,7 @@ print("done")
 print("開始合併...")
 root = "D://download_video//"
 outdir = "output"
-os.chdir(root)
+os.chdir(root) #更換路徑
 if not os.path.exists(outdir):
     os.mkdir(outdir)
 os.system("copy /b *.ts new.mp4")
