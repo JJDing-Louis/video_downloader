@@ -6,6 +6,7 @@
 import requests
 import m3u8
 import os
+import time
 
 #網址參數
 url = "https://cdn003.wokuzy.com/s03/d/0/0/ae3f99dd9f6c46c8d6b95a7658f89/hls/h264/index.m3u8"
@@ -43,24 +44,27 @@ for i in list_a:
 root = "D://download_video//"
 if not os.path.exists(root):
     os.mkdir(root)
+subroot = root+"download_buffer//"
+if not os.path.exists(subroot):
+    os.mkdir(subroot)
+    #os.chdir()
+
 
 for i in link:
-    #str= f"str{k}.ts"
-    filename = i[-14:-1]
-    print(i)
-    print(filename)
-    path = root
+    filename = i[-6:]
+    path = subroot + filename
     r =requests.get(i)
     with open(path, 'wb') as f:
         f.write(r.content)
         f.close()
         print('\r'+filename + "---> OK", end='')
-
+        time.sleep(2)
+        #WYun
 print("done")
-'''
+
 #以下是合併TS檔，並轉為mp4
 print("開始合併...")
-root = "D://download_video//"
+#root = "D://download_video//"
 outdir = "output"
 os.chdir(root) #更換路徑
 if not os.path.exists(outdir):
@@ -69,4 +73,4 @@ os.system("copy /b *.ts new.mp4")
 os.system("move new.mp4 {}".format(outdir))
 
 print("结束合并...")
-'''
+
